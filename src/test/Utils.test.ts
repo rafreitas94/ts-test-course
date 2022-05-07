@@ -1,17 +1,16 @@
 import { Utils } from '../app/Utils'
 
 
-describe('Utils test suite', ()=> {
-
-    beforeEach(()=>{
+describe('Utils test suite', () => {
+    beforeEach(() => {
         console.log('before each');
     });
 
-    beforeAll(()=>{
+    beforeAll(() => {
         console.log('before all');
     });
 
-    test('first test', ()=> {
+    test('first test', () => {
         const result = Utils.toUpperCase('abc');
         expect(result).toBe('ABC');
     });
@@ -26,13 +25,33 @@ describe('Utils test suite', ()=> {
 
     test('parse URL with query', () => {
         const parsedUrl = Utils.parseUrl('http://localhost:8080/login?user=user&password=pass');
-        const expectedQuert = {
+        const expectedQuery = {
             user: 'user',
             password: 'pass'
         }
-        expect(parsedUrl.query).toEqual(expectedQuert);
-        expect(expectedQuert).toBe(expectedQuert);
+        expect(parsedUrl.query).toEqual(expectedQuery);
+        expect(expectedQuery).toBe(expectedQuery);
     });
 
-    test.todo('test invalid URL');
+    test.only('test invalid URL', () => {
+        function expectedError() {
+            Utils.parseUrl('')
+        }
+        expect(expectedError).toThrowError('Empty url');
+    });
+
+    test.only('test invalid URL with arrow function', () => {
+        expect(()=>{
+            Utils.parseUrl('');
+        }).toThrowError('Empty url');
+    });
+
+    test.only('test invalid URL with try catch', () => {
+        try {
+            Utils.parseUrl('');
+        } catch (error) {
+            expect(error).toBeInstanceOf(Error);
+            expect(error).toHaveProperty('message', 'Empty url!');
+        }
+    });
 })
