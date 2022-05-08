@@ -1,7 +1,7 @@
 import { Utils } from '../app/Utils'
 
 
-describe('Utils test suite', () => {
+describe.skip('Utils test suite', () => {
     beforeEach(() => {
         console.log('before each');
     });
